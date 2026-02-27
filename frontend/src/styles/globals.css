@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-950 text-white antialiased;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-700 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-600;
+  }
+}
+
+/* React Flow overrides for dark theme */
+.react-flow__attribution {
+  display: none !important;
+}
+
+.react-flow__controls button {
+  @apply !bg-gray-800 !border-gray-600 !text-gray-300;
+}
+
+.react-flow__controls button:hover {
+  @apply !bg-gray-700;
+}
+
+.react-flow__controls button svg {
+  fill: currentColor;
+}
+
+.react-flow__minimap {
+  @apply !bg-gray-900 !border-gray-600;
+}
