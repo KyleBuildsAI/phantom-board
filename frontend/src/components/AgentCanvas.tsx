@@ -6,7 +6,6 @@ import {
   MiniMap,
   type Node,
   type Edge,
-  type OnNodesChange,
   useNodesState,
   useEdgesState,
 } from "@xyflow/react";
@@ -29,7 +28,7 @@ export default function AgentCanvas({ agents, connections, onSelectAgent }: Prop
         id: a.id,
         type: "agent",
         position: { x: a.position_x || (i % 4) * 250 + 50, y: a.position_y || Math.floor(i / 4) * 150 + 50 },
-        data: a,
+        data: a as unknown as Record<string, unknown>,
       })),
     [agents]
   );

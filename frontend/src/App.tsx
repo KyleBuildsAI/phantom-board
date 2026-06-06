@@ -6,8 +6,6 @@ import TaskQueue from "./components/TaskQueue";
 import { useWebSocket } from "./hooks/useWebSocket";
 import type { Agent, Task, MetricPoint, SystemMetrics, Connection } from "./types";
 
-const WS_URL = import.meta.env.VITE_WS_URL || "ws://localhost:8000/ws";
-
 export default function App() {
   const [agents, setAgents] = useState<Agent[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -16,8 +14,8 @@ export default function App() {
   const [selectedAgentId, setSelectedAgentId] = useState<string | null>(null);
   const [agentMetrics, setAgentMetrics] = useState<Record<string, MetricPoint[]>>({});
 
-  const handleMessage = useCallback((event: { type: string; data: unknown }) => {
-    switch (event.type) {
+  const handleMessage = useCallback((event: { event: string; data: unknown }) => {
+    switch (event.event) {
       case "agent_update": {
         const agent = event.data as Agent;
         setAgents((prev) => {
@@ -85,11 +83,11 @@ export default function App() {
     }
   }, [selectedAgentId]);
 
-  const { connected, send } = useWebSocket(WS_URL, handleMessage);
+  const { connected, send } = useWebSocket(handleMessage);
 
   const handleCommand = useCallback(
     (agentId: string, action: string) => {
-      send({ type: "command", data: { agent_id: agentId, action } });
+      send("command", { agent_id: agentId, action });
     },
     [send]
   );
