@@ -70,7 +70,7 @@ export default function AgentCanvas({ agents, connections, onSelectAgent }: Prop
         <Controls className="!bg-gray-800 !border-gray-600" />
         <MiniMap
           nodeColor={(n) => {
-            const s = (n.data as Agent)?.status;
+            const s = (n.data as unknown as Agent)?.status;
             if (s === "working") return "#3b82f6";
             if (s === "error") return "#ef4444";
             if (s === "idle") return "#10b981";
